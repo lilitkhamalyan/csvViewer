@@ -33,7 +33,7 @@ namespace csvViewer
             {
                 // User X-ed out of the dialog
                 Logger.LogTelemetry("File selection dialog canceled by user.");
-                return; 
+                return;
             }
 
             // Validate loaded data
@@ -96,7 +96,7 @@ namespace csvViewer
                 if (lines.Length == 0)
                 {
                     // Empty .csv file
-                    return dt; 
+                    return dt;
                 }
 
                 // Define row valiable to be used inside the loop
@@ -141,6 +141,12 @@ namespace csvViewer
                 String.IsNullOrEmpty(cellValue) ? "No data" : cellValue,
                 this
             );
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            // Clear the DataGridView
+            dgvTable.DataSource = null;
         }
     }
 }

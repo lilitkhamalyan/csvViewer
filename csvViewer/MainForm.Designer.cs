@@ -31,6 +31,7 @@
             btnSelectFile = new Button();
             openFileDialog = new OpenFileDialog();
             dgvTable = new DataGridView();
+            btnClear = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvTable).BeginInit();
             SuspendLayout();
             // 
@@ -60,11 +61,22 @@
             dgvTable.TabIndex = 1;
             dgvTable.CellDoubleClick += dgvTable_CellDoubleClick;
             // 
+            // btnClear
+            // 
+            btnClear.Location = new Point(416, 326);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(75, 23);
+            btnClear.TabIndex = 2;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
+            // 
             // formCsvViewer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(584, 361);
+            Controls.Add(btnClear);
             Controls.Add(dgvTable);
             Controls.Add(btnSelectFile);
             MinimumSize = new Size(600, 400);
@@ -79,5 +91,6 @@
         private Button btnSelectFile;
         private OpenFileDialog openFileDialog;
         private DataGridView dgvTable;
+        private Button btnClear;
     }
 }
