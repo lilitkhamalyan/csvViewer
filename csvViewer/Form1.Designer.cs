@@ -36,6 +36,7 @@
             // 
             // btnSelectFile
             // 
+            btnSelectFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnSelectFile.Location = new Point(713, 366);
             btnSelectFile.Name = "btnSelectFile";
             btnSelectFile.Size = new Size(75, 23);

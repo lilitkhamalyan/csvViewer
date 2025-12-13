@@ -41,19 +41,23 @@ namespace csvViewer
                 return dt; // Empty CSV
             }
 
-            // Create column headers
-            int colCount = lines[0].Split(',').Length;
+            // Define row valiable to be used inside the loop
+            string[] row = null;
 
-            for (int i = 0; i < colCount; i++)
-            {
-                dt.Columns.Add("Column" + (i + 1));
-            }
-
-
-            // All lines = data rows
             foreach (string line in lines)
             {
-                dt.Rows.Add(line.Split(','));
+                // Handle rows with different column counts
+                row = line.Split(",");
+                if (row.Length > dt.Columns.Count)
+                {
+                    for (int i = dt.Columns.Count; i < row.Length; i++)
+                    {
+                        dt.Columns.Add("Column" + (i + 1));
+                    }
+                }
+
+                // Add the row
+                dt.Rows.Add(row);
             }
 
             return dt;
@@ -67,12 +71,21 @@ namespace csvViewer
             }
             string cellValue = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
 
-            MessageBox.Show(
-                this,
-                cellValue,
-                $"Cell [{e.RowIndex},{e.ColumnIndex}]"
+            openDialog
+                (
+                  cellValue,
+                 $"Cell [{e.RowIndex},{e.ColumnIndex}]"
+                );
+        }
+
+        private void openDialog(string title, string message)
+        {
+            CustomMessageBox dialog = new CustomMessageBox(message, title);
+            dialog.Location = new Point(
+                Cursor.Position.X + 10,
+                Cursor.Position.Y + 10
             );
+            dialog.ShowDialog(this);
         }
     }
 }
-
