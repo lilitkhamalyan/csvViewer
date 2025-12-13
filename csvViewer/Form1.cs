@@ -21,36 +21,39 @@ namespace csvViewer
 
         private void btnSelectFile_Click(object sender, EventArgs e)
         {
-            // Restrict dialog to CSV and make selection safer
+            // Restrict dialog to .csv files only
             openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
             openFileDialog.CheckFileExists = true;
             openFileDialog.Multiselect = false;
             openFileDialog.ValidateNames = true;
 
             // Show the dialog
+            Logger.LogTelemetry("Opening file selection dialog.");
             if (openFileDialog.ShowDialog() == DialogResult.Cancel)
             {
                 // User X-ed out of the dialog
+                Logger.LogTelemetry("File selection dialog canceled by user.");
                 return; 
             }
 
+            // Validate loaded data
             if (dgvTable.DataSource == null)
             {
                 HelperMethods.openDialog(
                     "Error",
-                    $"Failed to load CSV file. Check the ErrorLog file for details.",
+                    $"Failed to load a .csv file. Check the ErrorLog file for details.",
                     this
                 );
             }
             else if (((DataTable)dgvTable.DataSource).Rows.Count == 0)
             {
+                Logger.LogTelemetry("User selected a .csv file with no data.");
                 HelperMethods.openDialog(
                     "Warning",
                     $"Selected file contains no data.",
                     this
                 );
             }
-
         }
 
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
@@ -60,6 +63,8 @@ namespace csvViewer
             // Validate extension before attempting to load
             while (!string.Equals(Path.GetExtension(filePath), ".csv", StringComparison.OrdinalIgnoreCase))
             {
+                Logger.LogTelemetry($"User selected invalid file type. Selected file: {filePath}");
+
                 HelperMethods.openDialog(
                     "Invalid file",
                     "Please select a file with the .csv extension.",
@@ -70,27 +75,28 @@ namespace csvViewer
             }
 
             // Load CSV into DataTable
-            Logger.LogTelemetry("Attempting to load CSV file.");
+            Logger.LogTelemetry("Attempting to load a .csv file.");
             DataTable dt = LoadCsvToDataTable(filePath);
-            Logger.LogTelemetry("CSV file successfully loaded.");
+            Logger.LogTelemetry("A .csv file was successfully loaded.");
 
             // Display in DataGridView
             dgvTable.DataSource = dt;
         }
 
-        // Helper method that generates data set from CSV file
+        // Helper method that generates data set from a .csv file
         private DataTable LoadCsvToDataTable(string filePath)
         {
             DataTable dt = new DataTable();
 
             try
             {
-                // Read all lines from the CSV
+                // Read all lines from the .csv file
                 string[] lines = File.ReadAllLines(filePath);
 
                 if (lines.Length == 0)
                 {
-                    return dt; // Empty CSV
+                    // Empty .csv file
+                    return dt; 
                 }
 
                 // Define row valiable to be used inside the loop
@@ -116,7 +122,7 @@ namespace csvViewer
             }
             catch (Exception ex)
             {
-                Logger.LogError($"Failed to load CSV file: {ex.Message}");
+                Logger.LogError($"Failed to load the .csv file: {ex.Message}");
             }
 
             return null;
