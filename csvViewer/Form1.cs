@@ -50,7 +50,7 @@ namespace csvViewer
                 row = line.Split(",");
                 if (row.Length > dt.Columns.Count)
                 {
-                    for (int i = dt.Columns.Count; i < row.Length; i++)
+                    for (int i = dt.Columns.Count; i < row.Length -2; i++)
                     {
                         dt.Columns.Add("Column" + (i + 1));
                     }
@@ -71,21 +71,11 @@ namespace csvViewer
             }
             string cellValue = dgvTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value?.ToString();
 
-            openDialog
-                (
-                  cellValue,
-                 $"Cell [{e.RowIndex},{e.ColumnIndex}]"
-                );
-        }
-
-        private void openDialog(string title, string message)
-        {
-            CustomMessageBox dialog = new CustomMessageBox(message, title);
-            dialog.Location = new Point(
-                Cursor.Position.X + 10,
-                Cursor.Position.Y + 10
+            HelperMethods.openDialog(
+                $"Cell [{e.RowIndex},{e.ColumnIndex}]",
+                cellValue,
+                this
             );
-            dialog.ShowDialog(this);
         }
     }
 }

@@ -11,7 +11,11 @@ namespace csvViewer
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new formCsvViewer());
+
+            // Create main form and initialize logger.
+            var mainForm = new formCsvViewer();
+            Logger.Initialize(mainForm);
+            Application.Run(mainForm);
         }
     }
 }
