@@ -47,7 +47,6 @@ public static class Logger
         catch
         {
             // Fallback to Event Log if file write fails
-            LogTelemetry("Failed to write to error log file, falling back to Windows Event Logging.");
             EventLog.WriteEntry("Application", "CsvViewer fallback logging - primary write failed", EventLogEntryType.Error);
         }
     }
