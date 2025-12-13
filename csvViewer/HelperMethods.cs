@@ -10,7 +10,7 @@ namespace csvViewer
     {
         public static void openDialog(string title, string message, Form mainForm)
         {
-            CustomMessageBox dialog = new CustomMessageBox(message, title);
+            CustomMessageBox dialog = new CustomMessageBox(title, message);
             dialog.StartPosition = FormStartPosition.Manual;
 
             dialog.Location = new Point(

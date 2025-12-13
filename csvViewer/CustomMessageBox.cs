@@ -28,7 +28,7 @@ namespace csvViewer
 
             _label = new Label
             {
-                Text = String.IsNullOrEmpty(message) ? "No data" : message,
+                Text = message,
                 Location = new Point(10, 10),
                 Size = new Size(ClientSize.Width - 15, ClientSize.Height - 60),
                 Font = new Font(

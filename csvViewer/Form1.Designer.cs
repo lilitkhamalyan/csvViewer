@@ -37,7 +37,7 @@
             // btnSelectFile
             // 
             btnSelectFile.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSelectFile.Location = new Point(713, 366);
+            btnSelectFile.Location = new Point(497, 326);
             btnSelectFile.Name = "btnSelectFile";
             btnSelectFile.Size = new Size(75, 23);
             btnSelectFile.TabIndex = 0;
@@ -53,11 +53,10 @@
             // dgvTable
             // 
             dgvTable.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvTable.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTable.Location = new Point(12, 12);
+            dgvTable.Location = new Point(0, 0);
             dgvTable.Name = "dgvTable";
-            dgvTable.Size = new Size(776, 348);
+            dgvTable.Size = new Size(584, 310);
             dgvTable.TabIndex = 1;
             dgvTable.CellDoubleClick += dgvTable_CellDoubleClick;
             // 
@@ -65,9 +64,10 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 401);
+            ClientSize = new Size(584, 361);
             Controls.Add(dgvTable);
             Controls.Add(btnSelectFile);
+            MinimumSize = new Size(600, 400);
             Name = "formCsvViewer";
             Text = "CSV Viewer";
             ((System.ComponentModel.ISupportInitialize)dgvTable).EndInit();
